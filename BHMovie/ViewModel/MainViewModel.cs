@@ -8,6 +8,8 @@ namespace BHMovie.ViewModel
     public partial class MainViewModel : BaseViewModel
     {
         MovieService movieService;
+        string test = "5";
+        //ds
 
         public ObservableCollection<Movie> Movies { get; } = new();
         public ObservableCollection<string> GenresAsStrings { get; } = new();
