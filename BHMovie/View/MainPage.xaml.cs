@@ -1,25 +1,27 @@
-﻿namespace BHMovie;
+﻿using BHMovie.ViewModel;
+
+namespace BHMovie.View;
 
 public partial class MainPage : ContentPage
 {
-	int count = 0;
+    private readonly MainViewModel _vm;
 
-	public MainPage()
-	{
-		InitializeComponent();
-	}
 
-	private void OnCounterClicked(object sender, EventArgs e)
-	{
-		count++;
+    public MainPage(MainViewModel vm)
+    {
+        InitializeComponent();
+        _vm = vm;
+        BindingContext = vm;
+    }
 
-		if (count == 1)
-			CounterBtn.Text = $"Clicked {count} time";
-		else
-			CounterBtn.Text = $"Clicked {count} times";
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        await _vm.LoadDataAsync();
+    }
 
-		SemanticScreenReader.Announce(CounterBtn.Text);
-	}
+
+
 }
 
 

@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:model="clr-namespace:BHMovie.Model"
+    BackgroundColor="Transparent"
+    x:Class="BHMovie.View.Templates.MovieItemTemplate">
+
+    <ContentView.Resources>
+        <ResourceDictionary>
+            <Style
+                x:Key="MovieTitleStyle"
+                TargetType="Label">
+
+                <Setter
+                    Property="FontSize"
+                    Value="Large" />
+
+                <Setter
+                    Property="FontAttributes"
+                    Value="Bold" />
+
+                <Setter
+                    Property="HorizontalOptions"
+                    Value="Center" />
+            </Style>
+
+            <Style
+                x:Key="MovieCoverStyle"
+                TargetType="Border">
+
+                <Setter
+                    Property="StrokeShape"
+                    Value="RoundRectangle 40" />
+
+                <Setter
+                    Property="StrokeThickness"
+                    Value="0" />
+
+                <Setter
+                    Property="Margin"
+                    Value="17, 0" />
+
+            </Style>
+
+            <Style
+                x:Key="MovieImageStyle"
+                TargetType="Image">
+
+                <Setter
+                    Property="Aspect"
+                    Value="AspectFill" />
+            </Style>
+
+            <Style
+                x:Key="MovieTitleContainerStyle"
+                TargetType="Layout">
+
+                <Setter
+                    Property="HorizontalOptions"
+                    Value="Center" />
+
+                <Setter
+                    Property="Margin"
+                    Value="0,1" />
+
+            </Style>
+
+
+            <Style
+                x:Key="MovieRatingStyle"
+                TargetType="Label">
+
+                <Setter
+                    Property="FontSize"
+                    Value="Small" />
+
+                <Setter
+                    Property="Margin"
+                    Value="6,0" />
+
+                <Setter
+                    Property="HorizontalOptions"
+                    Value="Center" />
+
+                <Setter
+                    Property="VerticalOptions"
+                    Value="Center" />
+            </Style>
+
+
+        </ResourceDictionary>
+    </ContentView.Resources>
+
+    <Grid
+        x:DataType="model:Movie"
+        RowDefinitions="*, Auto">
+
+        <Grid.GestureRecognizers>
+            <!--TODO: NAVIGATE TO DETAILS-->
+            <TapGestureRecognizer />
+
+        </Grid.GestureRecognizers>
+
+        <Border
+            Style="{StaticResource MovieCoverStyle}">
+
+            <Image
+                Style="{StaticResource MovieImageStyle}"
+                Source="{Binding poster_path}" />
+
+            <Border.Shadow>
+
+                <Shadow
+                    Opacity="0.35"
+                    Offset="0,12"
+                    Radius="12" />
+
+            </Border.Shadow>
+
+        </Border>
+        <StackLayout
+            Margin="0, 24"
+            Grid.Row="1">
+            <Label
+                Grid.Row="1"
+                Style="{StaticResource MovieTitleStyle}"
+                Text="{Binding original_title}" />
+            <StackLayout
+                Style="{StaticResource MovieTitleContainerStyle}"
+                Orientation="Horizontal">
+                <Image
+                    Source="ic_star.png" />
+
+                <Label
+                    Style="{StaticResource MovieRatingStyle}"
+                    Text="{Binding vote_average}" />
+            </StackLayout>
+
+
+        </StackLayout>
+    </Grid>
+
+</ContentView>
+

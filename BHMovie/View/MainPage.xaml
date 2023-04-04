@@ -1,43 +1,309 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BHMovie.MainPage">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="Movies"
+    xmlns:templates="clr-namespace:BHMovie.View.Templates"
+    BackgroundColor="White"
+    xmlns:model="clr-namespace:BHMovie.Model"
+    xmlns:viewmodel="clr-namespace:BHMovie.ViewModel"
+    x:DataType="viewmodel:MainViewModel"
+    x:Class="BHMovie.View.MainPage">
 
-    <ScrollView>
-        <VerticalStackLayout
-            Spacing="25"
-            Padding="30,0"
-            VerticalOptions="Center">
+    <ContentPage.Resources>
+        <ResourceDictionary>
 
+            <Color
+                x:Key="SourceIndicatorColor">#FD6D90</Color>
+
+            <Style
+                x:Key="SourceItemStyle"
+                TargetType="Grid">
+                <Setter
+                    Property="BackgroundColor"
+                    Value="White" />
+                <Setter
+                    Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup
+                            x:Name="CommonStates">
+                            <VisualState
+                                x:Name="Normal">
+
+                                <VisualState.Setters>
+                                    <Setter
+                                        TargetName="SourceText"
+                                        Property="Label.TextColor"
+                                        Value="#B9BAC2" />
+
+                                    <Setter
+                                        TargetName="SourceSelectedIndicator"
+                                        Property="BoxView.IsVisible"
+                                        Value="False" />
+                                </VisualState.Setters>
+                            </VisualState>
+
+                            <VisualState
+                                x:Name="Selected">
+                                <VisualState.Setters>
+                                    <Setter
+                                        TargetName="SourceText"
+                                        Property="Label.TextColor"
+                                        Value="#13163C" />
+
+                                    <Setter
+                                        TargetName="SourceSelectedIndicator"
+                                        Property="BoxView.IsVisible"
+                                        Value="True" />
+                                </VisualState.Setters>
+
+                            </VisualState>
+
+                        </VisualStateGroup>
+
+                    </VisualStateGroupList>
+
+                </Setter>
+
+            </Style>
+
+            <Style
+                x:Key="SourceTextStyle"
+                TargetType="Label">
+                <Setter
+                    Property="FontSize"
+                    Value="Large" />
+                <Setter
+                    Property="FontAttributes"
+                    Value="Bold" />
+            </Style>
+
+            <Style
+                x:Key="SourceIndicatorStyle"
+                TargetType="BoxView">
+                <Setter
+                    Property="HeightRequest"
+                    Value="6" />
+                <Setter
+                    Property="WidthRequest"
+                    Value="32" />
+                <Setter
+                    Property="Color"
+                    Value="{StaticResource SourceIndicatorColor}" />
+                <Setter
+                    Property="HorizontalOptions"
+                    Value="Start" />
+                <Setter
+                    Property="CornerRadius"
+                    Value="12" />
+
+            </Style>
+
+            <Style
+                x:Key="PaddingContainerStyle"
+                TargetType="Layout">
+                <Setter
+                    Property="Padding"
+                    Value="20, 0" />
+
+            </Style>
+
+            <Style
+                x:Key="NavigationIconStyle"
+                TargetType="Image">
+                <Setter
+                    Property="VerticalOptions"
+                    Value="Center" />
+                <Setter
+                    Property="WidthRequest"
+                    Value="20" />
+            </Style>
+
+            <Style
+                x:Key="CategoryItemsStyle"
+                TargetType="CollectionView">
+                <Setter
+                    Property="Margin"
+                    Value="0, 24, 0, 0" />
+
+            </Style>
+
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+
+
+    <Grid
+        RowDefinitions="60,60,Auto,*">
+
+        <!--NAVIGATION BAR-->
+        <Grid
+            Style="{StaticResource PaddingContainerStyle}"
+            BackgroundColor="Transparent"
+            ColumnDefinitions="Auto, *">
 
             <Image
-                Source="dotnet_bot.png"
-                SemanticProperties.Description="Cute dot net bot waving hi to you!"
-                HeightRequest="200"
-                HorizontalOptions="Center" />
+                Style="{StaticResource NavigationIconStyle}"
+                Source="ic_menu.png" />
 
-            <Label
-                Text="Hello, World!"
-                SemanticProperties.HeadingLevel="Level1"
-                FontSize="32"
-                HorizontalOptions="Center" />
+            <Image
+                HorizontalOptions="End"
+                Style="{StaticResource NavigationIconStyle}"
+                Source="ic_search.png"
+                Grid.Column="1" />
 
-            <Label
-                Text="Welcome to .NET Multi-platform App UI"
-                SemanticProperties.HeadingLevel="Level2"
-                SemanticProperties.Description="Welcome to dot net Multi platform App U I"
-                FontSize="18"
-                HorizontalOptions="Center" />
 
-            <Button
-                x:Name="CounterBtn"
-                Text="Click me"
-                SemanticProperties.Hint="Counts the number of times you click"
-                Clicked="OnCounterClicked"
-                HorizontalOptions="Center" />
+        </Grid>
 
-        </VerticalStackLayout>
-    </ScrollView>
+        <!--SOURCES-->
+        <Grid
+            Style="{StaticResource PaddingContainerStyle}"
+            BackgroundColor="Transparent"
+            Grid.Row="1">
+
+            <CollectionView
+                SelectedItem="{Binding SelectedGenre, Mode=TwoWay}"
+                SelectionMode="Single"
+                ItemsSource="{Binding GenresAsStrings}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout
+                        Orientation="Horizontal"
+                        ItemSpacing="40" />
+
+
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid
+                            Style="{StaticResource SourceItemStyle}"
+                            RowDefinitions="*, Auto">
+                            <Label
+                                x:Name="SourceText"
+                                Style="{StaticResource SourceTextStyle}"
+                                Text="{Binding}" />
+                            <BoxView
+                                x:Name="SourceSelectedIndicator"
+                                Style="{StaticResource SourceIndicatorStyle}"
+                                Grid.Row="1" />
+
+                        </Grid>
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </Grid>
+
+
+        <!--CATEGORIES-->
+        <Grid
+            
+            Style="{StaticResource PaddingContainerStyle}"
+            Grid.Row="2">
+
+            <CollectionView
+                Style="{StaticResource CategoryItemsStyle}"
+                ItemsSource="{Binding GenresAsStrings}"
+                HeightRequest="40">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout
+                        Orientation="Horizontal"
+                        ItemSpacing="12" />
+
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <templates:CategoryItemTemplate />
+
+                    </DataTemplate>
+
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </Grid>
+
+
+        <!--MOVIES-->
+        <CarouselView
+            Grid.Row="3"
+            PeekAreaInsets="50"
+            Margin="0, 30, 0, 20"
+            ItemsSource="{Binding Movies}">
+
+            <CarouselView.ItemsLayout>
+
+                <LinearItemsLayout
+                    SnapPointsAlignment="Center"
+                    SnapPointsType="MandatorySingle"
+                    Orientation="Horizontal"
+                    ItemSpacing="20">
+
+
+                </LinearItemsLayout>
+
+            </CarouselView.ItemsLayout>
+            <CarouselView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonState">
+                                <VisualState x:Name="CurrentItem">
+                                    <VisualState.Setters>
+                                        <Setter Property="Rotation"
+                                                Value="0"/>
+
+                                    </VisualState.Setters>
+
+                                </VisualState>
+
+                                <VisualState x:Name="PreviousItem">
+                                    <VisualState.Setters>
+                                        <Setter Property="Rotation"
+                                                Value="-10"/>
+
+                                        <Setter Property="Opacity"
+                                                Value="0.5"/>
+
+                                    </VisualState.Setters>
+
+                                </VisualState>
+
+                                <VisualState x:Name="NextItem">
+                                    <VisualState.Setters>
+                                        <Setter Property="Rotation"
+                                                Value="10"/>
+                                        <Setter Property="Opacity"
+                                                Value="0.5"/>
+
+                                    </VisualState.Setters>
+
+                                </VisualState>
+
+                            </VisualStateGroup>
+
+                        </VisualStateManager.VisualStateGroups>
+
+
+
+                        <templates:MovieItemTemplate />
+
+                    </Grid>
+
+
+                </DataTemplate>
+
+            </CarouselView.ItemTemplate>
+
+
+        </CarouselView>
+
+
+
+    </Grid>
 
 </ContentPage>
 

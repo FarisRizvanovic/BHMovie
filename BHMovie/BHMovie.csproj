@@ -50,6 +50,33 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <None Remove="Service\" />
+	  <None Remove="Model\" />
+	  <None Remove="ViewModel\" />
+	  <None Remove="View\" />
+	  <None Remove="Resources\Images\ic_menu.svg" />
+	  <None Remove="Resources\Images\ic_search.svg" />
+	  <None Remove="Resources\Images\ic_star_outline.svg" />
+	  <None Remove="Resources\Images\ic_star_yellow.svg" />
+	  <None Remove="Resources\Images\ic_star.svg" />
+	  <None Remove="View\Templates\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Service\" />
+	  <Folder Include="Model\" />
+	  <Folder Include="ViewModel\" />
+	  <Folder Include="View\" />
+	  <Folder Include="View\Templates\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Resources\Images\ic_menu.svg" />
+	  <BundleResource Include="Resources\Images\ic_search.svg" />
+	  <BundleResource Include="Resources\Images\ic_star_outline.svg" />
+	  <BundleResource Include="Resources\Images\ic_star_yellow.svg" />
+	  <BundleResource Include="Resources\Images\ic_star.svg" />
+	</ItemGroup>
 </Project>
