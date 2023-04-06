@@ -25,6 +25,9 @@ public static class MauiProgram
         builder.Services.AddSingleton<MainPage>();
         builder.Services.AddSingleton<MainViewModel>();
 
+        builder.Services.AddTransient<MovieDetailsPage>();
+        builder.Services.AddTransient<MovieDetailsViewModel>();
+
         builder.Services.AddSingleton<MovieService>();
 
         return builder.Build();

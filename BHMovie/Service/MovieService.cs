@@ -15,6 +15,7 @@ namespace BHMovie.Service
 
         MovieResponse movieResponse = new();
         GenreResponse genreResponse = new();
+        MovieDetailsResponse movieDetailsResponse = new();
 
 
         public async Task<MovieResponse> GetMovies()
@@ -50,6 +51,23 @@ namespace BHMovie.Service
 
             }
             return genreResponse;
+        }
+
+        public async Task<MovieDetailsResponse> GetMovieDetailsResponse(int movieId)
+        {
+            if (movieDetailsResponse.id != -1)
+                return movieDetailsResponse;
+
+            var url = $"https://api.themoviedb.org/3/movie/{movieId}?api_key=ceb3c376b1b48087d525af510ae3c248&language=en-US&append_to_response=credits";
+
+            var response = await httpClient.GetAsync(url);
+
+            if (response.IsSuccessStatusCode)
+            {
+                movieDetailsResponse = await response.Content.ReadFromJsonAsync<MovieDetailsResponse>();
+
+            }
+            return movieDetailsResponse;
         }
 
     }

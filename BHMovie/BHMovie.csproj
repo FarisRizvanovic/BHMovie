@@ -64,6 +64,7 @@
 	  <None Remove="Resources\Images\ic_star_yellow.svg" />
 	  <None Remove="Resources\Images\ic_star.svg" />
 	  <None Remove="View\Templates\" />
+	  <None Remove="Resources\Images\left-arrow.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Service\" />
@@ -78,5 +79,6 @@
 	  <BundleResource Include="Resources\Images\ic_star_outline.svg" />
 	  <BundleResource Include="Resources\Images\ic_star_yellow.svg" />
 	  <BundleResource Include="Resources\Images\ic_star.svg" />
+	  <BundleResource Include="Resources\Images\left_arrow.png" />
 	</ItemGroup>
 </Project>

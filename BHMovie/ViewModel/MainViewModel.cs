@@ -1,6 +1,8 @@
 ﻿using System;
+using Android.Util;
 using BHMovie.Model;
 using BHMovie.Service;
+using BHMovie.View;
 using CommunityToolkit.Mvvm.Input;
 
 namespace BHMovie.ViewModel
@@ -8,8 +10,6 @@ namespace BHMovie.ViewModel
     public partial class MainViewModel : BaseViewModel
     {
         MovieService movieService;
-        string test = "5";
-        //ds
 
         public ObservableCollection<Movie> Movies { get; } = new();
         public ObservableCollection<string> GenresAsStrings { get; } = new();
@@ -21,6 +21,18 @@ namespace BHMovie.ViewModel
         public MainViewModel(MovieService movieService)
         {
             this.movieService = movieService;
+        }
+
+        [RelayCommand]
+        async Task GoToDetails(Movie movie)
+        {
+            if (movie == null)
+                return;
+
+            await Shell.Current.GoToAsync(nameof(MovieDetailsPage), true, new Dictionary<string, object>
+            {
+                {"Movie", movie }
+            });
         }
 
         [RelayCommand]
