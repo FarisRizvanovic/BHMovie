@@ -3,11 +3,13 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="Movies"
+    xmlns:local="clr-namespace:BHMovie.View"
     xmlns:templates="clr-namespace:BHMovie.View.Templates"
     BackgroundColor="White"
     xmlns:model="clr-namespace:BHMovie.Model"
     xmlns:viewmodel="clr-namespace:BHMovie.ViewModel"
     x:DataType="viewmodel:MainViewModel"
+    Shell.FlyoutBehavior="Flyout"
     x:Class="BHMovie.View.MainPage">
 
     <ContentPage.Resources>
@@ -144,7 +146,15 @@
 
             <Image
                 Style="{StaticResource NavigationIconStyle}"
-                Source="ic_menu.png" />
+                Source="ic_menu.png" >
+
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="TapGestureRecognizer_Tapped"/>
+
+                </Image.GestureRecognizers>
+
+            </Image>
 
             <Image
                 HorizontalOptions="End"
