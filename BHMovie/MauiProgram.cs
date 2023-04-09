@@ -30,6 +30,7 @@ public static class MauiProgram
 
         builder.Services.AddSingleton<MovieService>();
 
+
         return builder.Build();
     }
 }

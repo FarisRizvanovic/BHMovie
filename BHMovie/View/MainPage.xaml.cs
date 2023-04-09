@@ -1,9 +1,8 @@
-﻿using Android.Widget;
+﻿using System.Threading;
+using System.Timers;
+using Android.Widget;
+using BHMovie.Model;
 using BHMovie.ViewModel;
-using Microsoft.Maui.Controls;
-using Microsoft.Maui.Controls.Xaml;
-
-
 namespace BHMovie.View;
 
 public partial class MainPage : ContentPage
@@ -11,9 +10,14 @@ public partial class MainPage : ContentPage
     private readonly MainViewModel _vm;
 
 
+
+    private System.Timers.Timer _timer;
+    private CancellationTokenSource _cancellationTokenSource;
+
     public MainPage(MainViewModel vm)
     {
         InitializeComponent();
+
         _vm = vm;
         BindingContext = vm;
     }
@@ -23,11 +27,56 @@ public partial class MainPage : ContentPage
         base.OnAppearing();
         await _vm.LoadDataAsync();
 
+        _timer = new System.Timers.Timer(1000); // Set the interval to 1 second
+        _timer.AutoReset = false; // Set AutoReset to false so the timer doesn't repeat
+        _timer.Elapsed += OnTimerElapsed;
+
+        _cancellationTokenSource = new CancellationTokenSource();
     }
+
 
     void TapGestureRecognizer_Tapped(System.Object sender, Microsoft.Maui.Controls.TappedEventArgs e)
     {
-        Shell.Current.FlyoutIsPresented = true;
+        Shell.Current.FlyoutIsPresented = !Shell.Current.FlyoutIsPresented;
+    }
+
+    void Searchbar_TextChanged(System.Object sender, Microsoft.Maui.Controls.TextChangedEventArgs e)
+    {
+
+        _cancellationTokenSource.Cancel();
+        _cancellationTokenSource = new CancellationTokenSource();
+
+        _timer.Stop();
+        _timer.Start();
+    }
+
+
+
+    private void OnTimerElapsed(object sender, ElapsedEventArgs e)
+    {
+        // Check if cancellation was requested
+        if (_cancellationTokenSource.Token.IsCancellationRequested)
+        {
+            return;
+        }
+
+        // Call viewmodel search method
+
+        MainThread.BeginInvokeOnMainThread(async () =>
+        {
+            await Shell.Current.DisplayAlert("Error!", $"Unable to  get movies:{Searchbar.Text} ", "OK");
+        });
+    }
+
+
+    async void MoviesCariusel_CurrentItemChanged(System.Object sender, Microsoft.Maui.Controls.CurrentItemChangedEventArgs e)
+    {
+        var item = MoviesCariusel.CurrentItem;
+
+        if (item == _vm.Movies.Last())
+        {
+            await _vm.GetMoviesAsync(_vm.CurrentPage);
+        }
     }
 }
 

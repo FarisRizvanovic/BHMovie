@@ -3,6 +3,7 @@ using Android.Util;
 using BHMovie.Model;
 using BHMovie.Service;
 using BHMovie.View;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
 namespace BHMovie.ViewModel
@@ -14,6 +15,12 @@ namespace BHMovie.ViewModel
         public ObservableCollection<Movie> Movies { get; } = new();
         public ObservableCollection<string> GenresAsStrings { get; } = new();
         public ObservableCollection<Genre> Genres { get; } = new();
+
+        [ObservableProperty]
+        Movie currentMovie;
+
+        [ObservableProperty]
+        int currentPage = 1;
 
         [ObservableProperty]
         string selectedGenre;
@@ -38,30 +45,32 @@ namespace BHMovie.ViewModel
         [RelayCommand]
         public async Task LoadDataAsync()
         {
-            await GetMoviesAsync();
+            await GetMoviesAsync(CurrentPage);
             await GetMovieGenresAsync();
         }
 
         [RelayCommand]
-        async Task GetMoviesAsync()
+        public async Task GetMoviesAsync(int page)
         {
             if (IsBusy)
                 return;
 
             try
             {
+
                 IsBusy = true;
-                var movieResponse = await movieService.GetMovies();
-                if (Movies.Count != 0)
-                {
-                    Movies.Clear();
-                }
+                var movieResponse = await movieService.GetMovies(page);
+
+                if (CurrentPage > movieResponse.total_pages)
+                    return;
 
                 foreach (var movie in movieResponse.results)
                 {
                     movie.poster_path = "https://image.tmdb.org/t/p/w500" + movie.poster_path;
                     Movies.Add(movie);
                 }
+
+                CurrentPage++;
             }
             catch (Exception ex)
             {

@@ -18,12 +18,12 @@ namespace BHMovie.Service
         MovieDetailsResponse movieDetailsResponse = new();
 
 
-        public async Task<MovieResponse> GetMovies()
+        public async Task<MovieResponse> GetMovies(int page)
         {
             if (movieResponse.results.Count > 0)
-                return movieResponse;
+                movieResponse = null;
 
-            var url = "https://api.themoviedb.org/3/discover/movie?with_original_language=bs&api_key=ceb3c376b1b48087d525af510ae3c248";
+            var url = $"https://api.themoviedb.org/3/discover/movie?with_original_language=bs&api_key=ceb3c376b1b48087d525af510ae3c248&page={page}";
 
             var response = await httpClient.GetAsync(url);
 

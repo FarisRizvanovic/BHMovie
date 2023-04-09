@@ -98,6 +98,9 @@
                 <Setter
                     Property="CornerRadius"
                     Value="12" />
+                <Setter
+                    Property="Margin"
+                    Value="0,20,0,0"/>
 
             </Style>
 
@@ -136,7 +139,7 @@
 
 
     <Grid
-        RowDefinitions="60,60,Auto,*">
+        RowDefinitions="60,Auto,*">
 
         <!--NAVIGATION BAR-->
         <Grid
@@ -156,17 +159,26 @@
 
             </Image>
 
+            <Entry
+                    x:Name="Searchbar"
+                    Grid.Column="1"
+                    Margin="10, 5, 30,10"
+                    TextChanged="Searchbar_TextChanged"
+                    VerticalTextAlignment="Center"
+                    Placeholder="Search..."/>
+
             <Image
-                HorizontalOptions="End"
-                Style="{StaticResource NavigationIconStyle}"
-                Source="ic_search.png"
-                Grid.Column="1" />
+                    HorizontalOptions="End"
+                    Style="{StaticResource NavigationIconStyle}"
+                    Source="ic_search.png"
+                    Grid.Column="1" />
 
 
         </Grid>
 
         <!--SOURCES-->
         <Grid
+            Margin="0, 30, 0, 30"
             Style="{StaticResource PaddingContainerStyle}"
             BackgroundColor="Transparent"
             Grid.Row="1">
@@ -209,7 +221,7 @@
 
 
         <!--CATEGORIES-->
-        <Grid
+        <!--<Grid
             
             Style="{StaticResource PaddingContainerStyle}"
             Grid.Row="2">
@@ -234,13 +246,18 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-        </Grid>
+        </Grid>-->
 
 
         <!--MOVIES-->
         <CarouselView
+            CurrentItemChanged="MoviesCariusel_CurrentItemChanged"
+            Loop="False"
+            IsBounceEnabled="False"
+            x:Name="MoviesCariusel"
             Grid.Row="3"
             PeekAreaInsets="50"
+            CurrentItem="{Binding CurrentMovie, Mode=TwoWay}"
             Margin="0, 30, 0, 20"
             ItemsSource="{Binding Movies}">
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using Android.Icu.Text;
+using static Java.Util.Jar.Attributes;
 
 namespace BHMovie.Model
 {
@@ -20,6 +21,18 @@ namespace BHMovie.Model
         public string release_date { get; set; }
         public int revenue { get; set; }
         public int runtime { get; set; }
+        public string RuntimeFormatted
+        {
+            get
+            {
+                return $"{runtime} min";
+            }
+            set
+            {
+                RuntimeFormatted = runtime.ToString();
+            }
+        }
+
         public string status { get; set; }
         public string tagline { get; set; }
         public string title { get; set; }
