@@ -13,27 +13,34 @@ namespace BHMovie.Service
             httpClient = new HttpClient();
         }
 
-        MovieResponse movieResponse = new();
         GenreResponse genreResponse = new();
         MovieDetailsResponse movieDetailsResponse = new();
+        MovieResponse moviesByGenres = new();
 
-
-        public async Task<MovieResponse> GetMovies(int page)
+        public async Task<MovieResponse> GetMoviesByGenre(int genreId, int page)
         {
-            if (movieResponse.results.Count > 0)
-                movieResponse = null;
+            if (moviesByGenres.results.Count > 0)
+                moviesByGenres = new();
 
-            var url = $"https://api.themoviedb.org/3/discover/movie?with_original_language=bs&api_key=ceb3c376b1b48087d525af510ae3c248&page={page}";
+            var url = "";
+
+            if (genreId == 0)
+            {
+                url = $"https://api.themoviedb.org/3/discover/movie?with_original_language=bs&api_key=ceb3c376b1b48087d525af510ae3c248&page={page}";
+            }
+            else
+            {
+                url = $"https://api.themoviedb.org/3/discover/movie?api_key=ceb3c376b1b48087d525af510ae3c248&with_original_language=bs&sort_by=vote_average.desc&with_genres={genreId}&page={page}";
+            }
 
             var response = await httpClient.GetAsync(url);
 
             if (response.IsSuccessStatusCode)
             {
-                movieResponse = await response.Content.ReadFromJsonAsync<MovieResponse>();
+                moviesByGenres = await response.Content.ReadFromJsonAsync<MovieResponse>();
             }
 
-            return movieResponse;
-
+            return moviesByGenres;
         }
 
         public async Task<GenreResponse> GetMovieGenres()
@@ -55,9 +62,6 @@ namespace BHMovie.Service
 
         public async Task<MovieDetailsResponse> GetMovieDetailsResponse(int movieId)
         {
-            if (movieDetailsResponse.id != -1)
-                return movieDetailsResponse;
-
             var url = $"https://api.themoviedb.org/3/movie/{movieId}?api_key=ceb3c376b1b48087d525af510ae3c248&language=en-US&append_to_response=credits";
 
             var response = await httpClient.GetAsync(url);

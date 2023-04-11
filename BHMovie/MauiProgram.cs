@@ -1,5 +1,6 @@
 ﻿using BHMovie.Service;
 using BHMovie.View;
+using BHMovie.View.Templates;
 using BHMovie.ViewModel;
 using Microsoft.Extensions.Logging;
 
@@ -27,6 +28,10 @@ public static class MauiProgram
 
         builder.Services.AddTransient<MovieDetailsPage>();
         builder.Services.AddTransient<MovieDetailsViewModel>();
+
+        builder.Services.AddTransient<CastItemTemplate>();
+        builder.Services.AddTransient<CategoryItemTemplate>();
+        builder.Services.AddTransient<MovieItemTemplate>();
 
         builder.Services.AddSingleton<MovieService>();
 

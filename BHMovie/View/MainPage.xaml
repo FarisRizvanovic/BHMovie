@@ -184,8 +184,10 @@
             Grid.Row="1">
 
             <CollectionView
+                x:Name="GenreList"
                 SelectedItem="{Binding SelectedGenre, Mode=TwoWay}"
                 SelectionMode="Single"
+                SelectionChanged="GenreList_SelectionChanged"
                 ItemsSource="{Binding GenresAsStrings}">
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout

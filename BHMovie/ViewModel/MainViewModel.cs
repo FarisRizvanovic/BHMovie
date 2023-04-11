@@ -17,13 +17,20 @@ namespace BHMovie.ViewModel
         public ObservableCollection<Genre> Genres { get; } = new();
 
         [ObservableProperty]
-        Movie currentMovie;
+        public Movie currentMovie;
 
         [ObservableProperty]
-        int currentPage = 1;
+        public int currentPage = 1;
 
         [ObservableProperty]
-        string selectedGenre;
+        int selectedPage = 1;
+
+        string previousGenre = "";
+
+        [ObservableProperty]
+        public string selectedGenre = "All Genres";
+
+        public bool firstTime = true;
 
         public MainViewModel(MovieService movieService)
         {
@@ -45,12 +52,17 @@ namespace BHMovie.ViewModel
         [RelayCommand]
         public async Task LoadDataAsync()
         {
-            await GetMoviesAsync(CurrentPage);
-            await GetMovieGenresAsync();
+            if (firstTime)
+            {
+                firstTime = false;
+                await GetMoviesByGenreAsync();
+                await GetMovieGenresAsync();
+            }
+
         }
 
         [RelayCommand]
-        public async Task GetMoviesAsync(int page)
+        public async Task GetMoviesByGenreAsync()
         {
             if (IsBusy)
                 return;
@@ -58,8 +70,17 @@ namespace BHMovie.ViewModel
             try
             {
 
+                if (previousGenre != SelectedGenre)
+                {
+                    Movies.Clear();
+                    previousGenre = SelectedGenre;
+                    CurrentPage = 1;
+                }
+
+                var genreId = (SelectedGenre == "All Genres") ? 0 : Genres[GenresAsStrings.IndexOf(SelectedGenre)].id;
+
                 IsBusy = true;
-                var movieResponse = await movieService.GetMovies(page);
+                var movieResponse = await movieService.GetMoviesByGenre(genreId, CurrentPage);
 
                 if (CurrentPage > movieResponse.total_pages)
                     return;
@@ -83,7 +104,8 @@ namespace BHMovie.ViewModel
             }
         }
 
-        async Task GetMovieGenresAsync()
+        [RelayCommand]
+        public async Task GetMovieGenresAsync()
         {
             if (IsBusy)
                 return;

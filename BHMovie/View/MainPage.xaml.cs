@@ -9,8 +9,6 @@ public partial class MainPage : ContentPage
 {
     private readonly MainViewModel _vm;
 
-
-
     private System.Timers.Timer _timer;
     private CancellationTokenSource _cancellationTokenSource;
 
@@ -71,12 +69,21 @@ public partial class MainPage : ContentPage
 
     async void MoviesCariusel_CurrentItemChanged(System.Object sender, Microsoft.Maui.Controls.CurrentItemChangedEventArgs e)
     {
-        var item = MoviesCariusel.CurrentItem;
+        var item = MoviesCariusel.CurrentItem as Movie;
 
         if (item == _vm.Movies.Last())
         {
-            await _vm.GetMoviesAsync(_vm.CurrentPage);
+            await _vm.GetMoviesByGenreAsync();
         }
+    }
+
+
+
+    async void GenreList_SelectionChanged(System.Object sender, Microsoft.Maui.Controls.SelectionChangedEventArgs e)
+    {
+        if (!_vm.firstTime)
+            await _vm.GetMoviesByGenreAsync();
+
     }
 }
 

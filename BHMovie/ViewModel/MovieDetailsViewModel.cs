@@ -53,6 +53,7 @@ namespace BHMovie.ViewModel
 
                 if (Cast.Count > 0)
                     return;
+
                 foreach (var cast in movieResponse.credits.cast)
                 {
                     cast.profile_path = "https://image.tmdb.org/t/p/w500" + cast.profile_path;
@@ -61,6 +62,7 @@ namespace BHMovie.ViewModel
 
                 if (Genres.Count > 0)
                     return;
+
                 foreach (var genre in movieResponse.genres)
                 {
                     Genres.Add(genre);
