@@ -67,6 +67,7 @@ public partial class MainPage : ContentPage
     }
 
 
+    // Listen for the last element in the MovieCariousel and paginate
     async void MoviesCariusel_CurrentItemChanged(System.Object sender, Microsoft.Maui.Controls.CurrentItemChangedEventArgs e)
     {
         var item = MoviesCariusel.CurrentItem as Movie;
@@ -78,7 +79,7 @@ public partial class MainPage : ContentPage
     }
 
 
-
+    // Listen for genre changes and call appropiate data
     async void GenreList_SelectionChanged(System.Object sender, Microsoft.Maui.Controls.SelectionChangedEventArgs e)
     {
         if (!_vm.firstTime)

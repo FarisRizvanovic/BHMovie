@@ -3,6 +3,8 @@ using BHMovie.View;
 using BHMovie.View.Templates;
 using BHMovie.ViewModel;
 using Microsoft.Extensions.Logging;
+using Microsoft.Maui.Controls.Compatibility.Platform.Android;
+using Microsoft.Maui.Handlers;
 
 namespace BHMovie;
 
@@ -18,6 +20,12 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             });
+
+        Microsoft.Maui.Handlers.EntryHandler.Mapper.AppendToMapping("NoUnderline", (h, v) =>
+        {
+            //Remove enrty underline for android
+            h.PlatformView.BackgroundTintList = Android.Content.Res.ColorStateList.ValueOf(Colors.Transparent.ToAndroid());
+        });
 
 #if DEBUG
         builder.Logging.AddDebug();

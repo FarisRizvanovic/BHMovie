@@ -3,6 +3,33 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="BHMovie.View.FavouriteMoviesPage"
              Title="FavouriteMoviesPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style
+                x:Key="PaddingContainerStyle"
+                TargetType="Layout">
+                <Setter
+                    Property="Padding"
+                    Value="20, 0" />
+
+            </Style>
+
+             <Style
+                x:Key="NavigationIconStyle"
+                TargetType="Image">
+                <Setter
+                    Property="VerticalOptions"
+                    Value="Center" />
+                <Setter
+                    Property="WidthRequest"
+                    Value="20" />
+            </Style>
+
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+
     <Grid
         RowDefinitions="60,60,Auto,*">
 
@@ -24,11 +51,11 @@
 
             </Image>
 
-            <Image
+            <!--<Image
                 HorizontalOptions="End"
                 Style="{StaticResource NavigationIconStyle}"
                 Source="ic_search.png"
-                Grid.Column="1" />
+                Grid.Column="1" />-->
 
 
         </Grid>

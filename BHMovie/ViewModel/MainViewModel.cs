@@ -55,8 +55,8 @@ namespace BHMovie.ViewModel
             if (firstTime)
             {
                 firstTime = false;
-                await GetMoviesByGenreAsync();
                 await GetMovieGenresAsync();
+                await GetMoviesByGenreAsync();
             }
 
         }
@@ -69,7 +69,6 @@ namespace BHMovie.ViewModel
 
             try
             {
-
                 if (previousGenre != SelectedGenre)
                 {
                     Movies.Clear();
@@ -125,12 +124,22 @@ namespace BHMovie.ViewModel
                 GenresAsStrings.Add(basicGenre.name);
                 Genres.Add(basicGenre);
 
+                string t = "";
+
                 foreach (var genre in genreResponse.genres)
                 {
                     Genres.Add(genre);
                     GenresAsStrings.Add(genre.name);
+
                 }
+
+                foreach (var g in GenresAsStrings)
+                {
+                    Log.Debug("GENRES", $"{g}");
+                }
+
                 SelectedGenre = basicGenre.name;
+
             }
             catch (Exception ex)
             {

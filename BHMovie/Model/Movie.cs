@@ -1,11 +1,17 @@
 ﻿using System;
+using SQLite;
+
 namespace BHMovie.Model
 {
     public class Movie
     {
         public bool adult { get; set; }
         public string backdrop_path { get; set; }
+
+        [Ignore]
         public List<int> genre_ids { get; set; }
+
+        [PrimaryKey]
         public int id { get; set; }
         public string original_language { get; set; }
         public string original_title { get; set; }

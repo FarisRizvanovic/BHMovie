@@ -22,6 +22,7 @@
             </Style>
 
             <Style x:Key="BackIconStyle" TargetType="Label">
+                <Setter Property="TextColor" Value="White"/>
                 <Setter Property="Margin" Value="12" />
                 <Setter Property="FontSize" Value="20" />
                 <Setter Property="FontAttributes" Value="Bold"/>
@@ -141,21 +142,51 @@
         RowDefinitions="400, Auto, Auto, *">
             <!-- COVER -->
             <Grid>
+
                 <Border
-                Style="{StaticResource CoverContainerStyle}">
+                    Style="{StaticResource CoverContainerStyle}">
+
+                    <Border.Shadow>
+                        <Shadow
+                                Brush="black"
+                                Offset="0,10"
+                                Radius="40"
+                                Opacity="0.5"/>
+
+                    </Border.Shadow>
+
                     <Image 
                     Source="{Binding Movie.poster_path}"
-                    Style="{StaticResource CoverImageStyle}"/>
+                    Style="{StaticResource CoverImageStyle}">
+
+                    </Image>
                 </Border>
+
+                <BoxView
+                        HeightRequest="60"
+                        HorizontalOptions="FillAndExpand"
+                        Color="Transparent"
+                        VerticalOptions="Start"
+                        BackgroundColor="Transparent">
+                    <BoxView.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#b0000000" Offset="0" />
+                            <GradientStop Color="#00000000" Offset="1" />
+                        </LinearGradientBrush>
+                    </BoxView.Background>
+                </BoxView>
 
                 <Label 
                 Text="Back"
+                HorizontalOptions="FillAndExpand"
                 Style="{StaticResource BackIconStyle}">
                     <Label.GestureRecognizers>
                         <TapGestureRecognizer         
                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MovieDetailsViewModel}}, Path=GoBackCommand}"/>
                     </Label.GestureRecognizers>
+
                 </Label>
+
             </Grid>
             <!-- INFO -->
             <Grid
@@ -171,7 +202,7 @@
                 <Label
                 Grid.Row="1"
                 Text="{Binding Movie.release_date}"
-                Style="{StaticResource MovieInfoTextStyle}"/>    
+                Style="{StaticResource MovieInfoTextStyle}"/>
                 <Label
                 Grid.Column="2"
                 Grid.Row="1"
@@ -266,37 +297,22 @@
                         Grid.Row="2"
                         Text="{Binding MovieDetailsResponse.vote_count}"
                         Style="{StaticResource InfoSubTitleStyle}"/>
-                    </Grid>
-                    <!--<Grid
-                    Grid.Column="1"
-                    RowSpacing="0"
-                    RowDefinitions="*, *, *">
-                    <Image
-                        Source="ic_star_outline.png"
-                        Style="{StaticResource RatingOutlineIconStyle}"/>
-                    <Label
-                        Grid.Row="1"
-                        Text="Rate This"
-                        Style="{StaticResource InfoTitleStyle}"/>
-                </Grid>-->
+                    </Grid>                
                     <Grid
                     RowSpacing="0"
-                    RowDefinitions="*, *, *"
+                    VerticalOptions="Center"
+                    RowDefinitions="*, *"
                     Grid.Column="2">
                         <Border
                         Style="{StaticResource MetascoreStyle}">
                             <Label
-                            Text="{Binding Movie.popularity}"
+                            Text="{Binding Movie.popularity, StringFormat='{0:0.0}'}"
                             Style="{StaticResource MetascoreTextStyle}"/>
                         </Border>
                         <Label
                         Grid.Row="1"
                         Text="Metascore"
                         Style="{StaticResource InfoTitleStyle}"/>
-                        <Label
-                        Grid.Row="2"
-                        Text="62 critic reviews"
-                        Style="{StaticResource InfoSubTitleStyle}"/>
                     </Grid>
                 </Grid>
             </Border>

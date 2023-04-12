@@ -113,6 +113,16 @@
 
             </Style>
 
+
+            <Style
+                x:Key="NavigationContainerStyle"
+                TargetType="Layout">
+                <Setter
+                    Property="Padding"
+                    Value="20, 0, 15 , 0" />
+
+            </Style>
+
             <Style
                 x:Key="NavigationIconStyle"
                 TargetType="Image">
@@ -143,7 +153,7 @@
 
         <!--NAVIGATION BAR-->
         <Grid
-            Style="{StaticResource PaddingContainerStyle}"
+            Style="{StaticResource NavigationContainerStyle}"
             BackgroundColor="Transparent"
             ColumnDefinitions="Auto, *">
 
@@ -159,24 +169,39 @@
 
             </Image>
 
-            <Entry
+            <Grid
+                Grid.Column="1">
+
+                <Frame
+                    Margin="10, 10, 0,10"
+                    BorderColor="LightGray"
+                    BackgroundColor="Transparent"
+                    CornerRadius="50"
+                    HasShadow="False"/>
+
+                <Entry
                     x:Name="Searchbar"
                     Grid.Column="1"
-                    Margin="10, 5, 30,10"
+                    BackgroundColor="Transparent"
+                    Margin="25, 10, 45,10"
+                    HorizontalOptions="FillAndExpand"
                     TextChanged="Searchbar_TextChanged"
                     VerticalTextAlignment="Center"
                     Placeholder="Search..."/>
 
-            <Image
+                <Image
+                    Margin="0, 5, 10, 5"
+                    VerticalOptions="Center"
                     HorizontalOptions="End"
                     Style="{StaticResource NavigationIconStyle}"
                     Source="ic_search.png"
-                    Grid.Column="1" />
+                    />
 
+            </Grid>
 
         </Grid>
 
-        <!--SOURCES-->
+        <!--Genres-->
         <Grid
             Margin="0, 30, 0, 30"
             Style="{StaticResource PaddingContainerStyle}"
@@ -194,23 +219,22 @@
                         Orientation="Horizontal"
                         ItemSpacing="40" />
 
-
                 </CollectionView.ItemsLayout>
 
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
+
                         <Grid
-                            Style="{StaticResource SourceItemStyle}"
-                            RowDefinitions="*, Auto">
-                            <Label
+                            RowDefinitions="Auto, Auto"
+                            Style="{StaticResource SourceItemStyle}">
+                            <Label        
                                 x:Name="SourceText"
                                 Style="{StaticResource SourceTextStyle}"
-                                Text="{Binding}" />
+                                Text="{Binding .}" />
                             <BoxView
                                 x:Name="SourceSelectedIndicator"
                                 Style="{StaticResource SourceIndicatorStyle}"
                                 Grid.Row="1" />
-
                         </Grid>
 
                     </DataTemplate>
@@ -220,36 +244,6 @@
             </CollectionView>
 
         </Grid>
-
-
-        <!--CATEGORIES-->
-        <!--<Grid
-            
-            Style="{StaticResource PaddingContainerStyle}"
-            Grid.Row="2">
-
-            <CollectionView
-                Style="{StaticResource CategoryItemsStyle}"
-                ItemsSource="{Binding GenresAsStrings}"
-                HeightRequest="40">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout
-                        Orientation="Horizontal"
-                        ItemSpacing="12" />
-
-                </CollectionView.ItemsLayout>
-
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <templates:CategoryItemTemplate />
-
-                    </DataTemplate>
-
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
-        </Grid>-->
-
 
         <!--MOVIES-->
         <CarouselView
@@ -262,18 +256,13 @@
             CurrentItem="{Binding CurrentMovie, Mode=TwoWay}"
             Margin="0, 30, 0, 20"
             ItemsSource="{Binding Movies}">
-
             <CarouselView.ItemsLayout>
-
                 <LinearItemsLayout
                     SnapPointsAlignment="Center"
                     SnapPointsType="MandatorySingle"
                     Orientation="Horizontal"
                     ItemSpacing="20">
-
-
                 </LinearItemsLayout>
-
             </CarouselView.ItemsLayout>
             <CarouselView.ItemTemplate>
                 <DataTemplate>
@@ -284,55 +273,31 @@
                                     <VisualState.Setters>
                                         <Setter Property="Rotation"
                                                 Value="0"/>
-
                                     </VisualState.Setters>
-
                                 </VisualState>
-
                                 <VisualState x:Name="PreviousItem">
                                     <VisualState.Setters>
                                         <Setter Property="Rotation"
                                                 Value="-10"/>
-
                                         <Setter Property="Opacity"
                                                 Value="0.5"/>
-
                                     </VisualState.Setters>
-
                                 </VisualState>
-
                                 <VisualState x:Name="NextItem">
                                     <VisualState.Setters>
                                         <Setter Property="Rotation"
                                                 Value="10"/>
                                         <Setter Property="Opacity"
                                                 Value="0.5"/>
-
                                     </VisualState.Setters>
-
                                 </VisualState>
-
                             </VisualStateGroup>
-
                         </VisualStateManager.VisualStateGroups>
-
-
-
                         <templates:MovieItemTemplate />
-
                     </Grid>
-
-
                 </DataTemplate>
-
             </CarouselView.ItemTemplate>
-
-
         </CarouselView>
-
-
-
     </Grid>
-
 </ContentPage>
 
