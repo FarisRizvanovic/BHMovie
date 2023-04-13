@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BHMovie.View.FavouritesPage"
-             xmlns:viewmodel="clr-namespace:BHMovie.ViewModel"
-             xmlns:model="clr-namespace:BHMovie.Model"
-             x:DataType="viewmodel:FavouriteMoviesViewModel"
-             Title="FavouritesPage">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BHMovie.View.FavouritesPage"
+    xmlns:viewmodel="clr-namespace:BHMovie.ViewModel"
+    xmlns:model="clr-namespace:BHMovie.Model"
+    xmlns:other="clr-namespace:BHMovie.Other"
+    x:DataType="viewmodel:FavouriteMoviesViewModel"
+    Title="FavouritesPage">
     <ContentPage.Resources>
         <ResourceDictionary>
             <Style
@@ -53,13 +55,184 @@
 
         </ResourceDictionary>
 
+        <DataTemplate x:Key="FirstItemTemplate">
+        <Grid Padding="0,50,0,0">
+            <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem
+                                    Text="Delete"
+                                    BackgroundColor="Red"
+                                    IconImageSource="ic_delete.png"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FavouriteMoviesViewModel}}, Path=RemoveMovieFromFavouritesCommand}"
+                                    CommandParameter="{Binding .}" />
+
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Frame
+                            Style="{StaticResource CardView}"
+                            Margin="10"
+                            HeightRequest="130">
+                            <Grid
+                                ColumnDefinitions="Auto, *"
+                                Padding="10">
+
+                                <Image
+                                    Aspect="AspectFill"
+                                    Source="{Binding poster_path}"
+                                    WidthRequest="75"
+                                    HeightRequest="112.5" />
+
+                                <VerticalStackLayout
+                                    Grid.Column="1">
+
+                                    <Label
+                                        Text="{Binding original_title}" />
+                                </VerticalStackLayout>
+
+
+                            </Grid>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type           viewmodel:FavouriteMoviesViewModel}},
+                                Path=GoToDetailsCommand}"
+                                    CommandParameter="{Binding .}" />
+
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </SwipeView>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DefaultItemTemplate">
+        <Grid>
+           <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItems>
+                                <SwipeItem
+                                    Text="Delete"
+                                    BackgroundColor="Red"
+                                    IconImageSource="ic_delete.png"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FavouriteMoviesViewModel}}, Path=RemoveMovieFromFavouritesCommand}"
+                                    CommandParameter="{Binding .}" />
+
+                            </SwipeItems>
+                        </SwipeView.RightItems>
+
+                        <Frame
+                            Style="{StaticResource CardView}"
+                            Margin="10"
+                            HeightRequest="130">
+                            <Grid
+                                ColumnDefinitions="Auto, *"
+                                Padding="10">
+
+                                <Image
+                                    Aspect="AspectFill"
+                                    Source="{Binding poster_path}"
+                                    WidthRequest="75"
+                                    HeightRequest="112.5" />
+
+                                <VerticalStackLayout
+                                    Grid.Column="1">
+
+                                    <Label
+                                        Text="{Binding original_title}" />
+                                </VerticalStackLayout>
+
+
+                            </Grid>
+
+                            <Frame.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type           viewmodel:FavouriteMoviesViewModel}},
+                                Path=GoToDetailsCommand}"
+                                    CommandParameter="{Binding .}" />
+
+                            </Frame.GestureRecognizers>
+
+                        </Frame>
+                    </SwipeView>
+        </Grid>
+    </DataTemplate>
+
+    <other:FirstItemPaddingTemplateSelector x:Key="FirstItemPaddingTemplateSelector"
+        FirstItemTemplate="{StaticResource FirstItemTemplate}"
+        DefaultItemTemplate="{StaticResource DefaultItemTemplate}" />
+
     </ContentPage.Resources>
 
     <Grid
-        RowDefinitions="60,*">
+        RowDefinitions="*">
 
         <!--NAVIGATION BAR-->
+
+        <!--<Grid
+            ZIndex="10"
+            Style="{StaticResource PaddingContainerStyle}"
+            HorizontalOptions="Start"
+            VerticalOptions="Start"
+            
+            >
+
+            
+
+            <Image
+                Style="{StaticResource NavigationIconStyle}"
+                Source="ic_menu.png" >
+
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="TapGestureRecognizer_Tapped"/>
+
+                </Image.GestureRecognizers>
+
+            </Image>
+        </Grid>-->
+
         <Grid
+            ZIndex="1"
+            VerticalOptions="Start">
+
+            <BoxView
+                HeightRequest="60"
+                HorizontalOptions="FillAndExpand"
+                Color="Transparent"
+                VerticalOptions="Start"
+                BackgroundColor="Transparent">
+                <BoxView.Background>
+                    <LinearGradientBrush
+                        StartPoint="0,0"
+                        EndPoint="0,1">
+                        <GradientStop
+                            Color="#b0000000"
+                            Offset="0" />
+                        <GradientStop
+                            Color="#00000000"
+                            Offset="1" />
+                    </LinearGradientBrush>
+                </BoxView.Background>
+            </BoxView>
+
+            <Image
+                Margin="20,0"
+                HorizontalOptions="Start"
+                Style="{StaticResource NavigationIconStyle}"
+                Source="ic_menu.png">
+
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="TapGestureRecognizer_Tapped" />
+
+                </Image.GestureRecognizers>
+
+            </Image>
+        </Grid>
+
+        <!--<Grid
             Style="{StaticResource PaddingContainerStyle}"
             BackgroundColor="Transparent"
             ColumnDefinitions="Auto, *">
@@ -75,53 +248,54 @@
                 </Image.GestureRecognizers>
 
             </Image>
-        </Grid>
+        </Grid>-->
 
         <!--MOVIES-->
+
         <CollectionView
+            
             Grid.Row="2"
             Grid.ColumnSpan="2"
+            ItemTemplate="{StaticResource FirstItemPaddingTemplateSelector}"
             ItemsSource="{Binding Movies}"
-            SelectionMode="None"
-            >
-            <CollectionView.ItemTemplate>
+            SelectionMode="None">
+            <!--<CollectionView.ItemTemplate>
                 <DataTemplate
+
                     x:DataType="model:Movie">
 
                     <SwipeView>
                         <SwipeView.RightItems>
                             <SwipeItems>
-                                <SwipeItem Text="Delete" BackgroundColor="Red"
-                                           IconImageSource="ic_delete.png"
-                                           Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FavouriteMoviesViewModel}}, Path=RemoveMovieFromFavouritesCommand}" CommandParameter="{Binding .}"/>
+                                <SwipeItem
+                                    Text="Delete"
+                                    BackgroundColor="Red"
+                                    IconImageSource="ic_delete.png"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FavouriteMoviesViewModel}}, Path=RemoveMovieFromFavouritesCommand}"
+                                    CommandParameter="{Binding .}" />
 
                             </SwipeItems>
                         </SwipeView.RightItems>
 
-
-                        <!--Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:FavouriteMoviesViewModel}}, Path=DeleteCommand}" CommandParameter="{Binding .}"-->
-
-
                         <Frame
-                        Style="{StaticResource CardView}"
-                        
-                        Margin="10"
-                        HeightRequest ="130">
+                            Style="{StaticResource CardView}"
+                            Margin="10"
+                            HeightRequest="130">
                             <Grid
-                            ColumnDefinitions="Auto, *"
-                            Padding="10">
+                                ColumnDefinitions="Auto, *"
+                                Padding="10">
 
                                 <Image
-                                Aspect="AspectFill"
-                                Source="{Binding poster_path}"
-                                WidthRequest="75"
-                                HeightRequest="112.5"/>
+                                    Aspect="AspectFill"
+                                    Source="{Binding poster_path}"
+                                    WidthRequest="75"
+                                    HeightRequest="112.5" />
 
                                 <VerticalStackLayout
-                                Grid.Column="1">
+                                    Grid.Column="1">
 
                                     <Label
-                                Text="{Binding original_title}"/>
+                                        Text="{Binding original_title}" />
                                 </VerticalStackLayout>
 
 
@@ -129,10 +303,9 @@
 
                             <Frame.GestureRecognizers>
                                 <TapGestureRecognizer
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type           viewmodel:FavouriteMoviesViewModel}},
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type           viewmodel:FavouriteMoviesViewModel}},
                                 Path=GoToDetailsCommand}"
-                                CommandParameter="{Binding .}"
-                                />
+                                    CommandParameter="{Binding .}" />
 
                             </Frame.GestureRecognizers>
 
@@ -140,7 +313,7 @@
                     </SwipeView>
                 </DataTemplate>
 
-            </CollectionView.ItemTemplate>
+            </CollectionView.ItemTemplate>-->
 
         </CollectionView>
 
