@@ -1,5 +1,6 @@
 ﻿using System;
 using BHMovie.Model;
+using BHMovie.Other;
 using BHMovie.Service;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Maui.Controls;
@@ -10,14 +11,20 @@ namespace BHMovie.ViewModel
     public partial class MovieDetailsViewModel : BaseViewModel
     {
         MovieService movieService;
+        IDatabaseService databaseService;
 
-        public MovieDetailsViewModel(MovieService movieService)
+        public MovieDetailsViewModel(MovieService movieService, DatabaseService databaseService)
         {
             this.movieService = movieService;
+            this.databaseService = databaseService;
+
         }
 
         [ObservableProperty]
         Movie movie;
+
+        [ObservableProperty]
+        Boolean isMovieFavourited;
 
         [ObservableProperty]
         MovieDetailsResponse movieDetailsResponse;
@@ -31,6 +38,17 @@ namespace BHMovie.ViewModel
             await Shell.Current.GoToAsync("..");
         }
 
+        [RelayCommand]
+        public async Task AddMovieToFavourites()
+        {
+            await databaseService.AddMovie(Movie);
+            await Shell.Current.DisplayAlert("Error!", $"Unable to  get movies:", "OK");
+        }
+
+        public async Task CheckIfMovieIsInDatabase()
+        {
+            IsMovieFavourited = await databaseService.CheckIfMovieIsFavourited(Movie);
+        }
 
         [RelayCommand]
         public async Task LoadDataAsync()

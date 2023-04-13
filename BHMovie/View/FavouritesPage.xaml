@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BHMovie.View.FavouritesPage"
+             xmlns:viewmodel="clr-namespace:BHMovie.ViewModel"
+             xmlns:model="clr-namespace:BHMovie.Model"
+             x:DataType="viewmodel:FavouriteMoviesViewModel"
+             Title="FavouritesPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style
+                x:Key="PaddingContainerStyle"
+                TargetType="Layout">
+                <Setter
+                    Property="Padding"
+                    Value="20, 0" />
+
+            </Style>
+
+            <Style
+                x:Key="NavigationIconStyle"
+                TargetType="Image">
+                <Setter
+                    Property="VerticalOptions"
+                    Value="Center" />
+                <Setter
+                    Property="WidthRequest"
+                    Value="20" />
+            </Style>
+
+            <Style
+                x:Key="CardView"
+                TargetType="Frame">
+                <Setter
+                    Property="BorderColor"
+                    Value="#DDDDDD" />
+                <Setter
+                    Property="HasShadow"
+                    Value="{OnPlatform iOS=false, MacCatalyst=false, Default=true}" />
+                <Setter
+                    Property="Padding"
+                    Value="0" />
+                <Setter
+                    Property="Background"
+                    Value="#FAF9F8" />
+                <Setter
+                    Property="CornerRadius"
+                    Value="10" />
+                <Setter
+                    Property="IsClippedToBounds"
+                    Value="True" />
+            </Style>
+
+        </ResourceDictionary>
+
+    </ContentPage.Resources>
+
+    <Grid
+        RowDefinitions="60,Auto,*">
+
+        <!--NAVIGATION BAR-->
+        <Grid
+            Style="{StaticResource PaddingContainerStyle}"
+            BackgroundColor="Transparent"
+            ColumnDefinitions="Auto, *">
+
+            <Image
+                Style="{StaticResource NavigationIconStyle}"
+                Source="ic_menu.png" >
+
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer
+                        Tapped="TapGestureRecognizer_Tapped"/>
+
+                </Image.GestureRecognizers>
+
+            </Image>
+        </Grid>
+
+
+        <!--MOVIES-->
+
+        <Button
+            Grid.Row="1"
+            x:Name="RefreshButton"
+            Text="Get Movies"
+            Command="{Binding RefreshCommand}"
+            />
+
+        <CollectionView
+            Grid.Row="2"
+            Grid.ColumnSpan="2"
+            ItemsSource="{Binding Movies}"
+            SelectionMode="None"
+            >
+            <CollectionView.ItemTemplate>
+                <DataTemplate
+                    x:DataType="model:Movie">
+                    <Frame
+                        Style="{StaticResource CardView}"
+                        
+                        Margin="10"
+                        HeightRequest ="130">
+                        <Grid
+                            ColumnDefinitions="Auto, *"
+                            Padding="10">
+
+                            <Image
+                                Aspect="AspectFill"
+                                Source="{Binding poster_path}"
+                                WidthRequest="75"
+                                HeightRequest="112.5"/>
+
+                            <VerticalStackLayout
+                                Grid.Column="1">
+
+                                <Label
+                                Text="{Binding original_title}"/>
+                            </VerticalStackLayout>
+                            
+
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+
+    </Grid>
+</ContentPage>

@@ -30,7 +30,7 @@
     <FlyoutItem Title="Favourite Movies">
         <ShellContent
 			Title="Favourite Movies"
-			ContentTemplate="{DataTemplate views:FavouriteMoviesPage}"
+			ContentTemplate="{DataTemplate views:FavouritesPage}"
 			Route="FavouriteMoviesPage"/>
 
     </FlyoutItem>

@@ -137,185 +137,211 @@
 
         </ResourceDictionary>
     </ContentPage.Resources>
-    <ScrollView>
-        <Grid
-        RowDefinitions="400, Auto, Auto, *">
-            <!-- COVER -->
-            <Grid>
 
-                <Border
+    <Grid
+        RowDefinitions="*">
+
+        <!--NavigationBar-->
+        <Grid
+            ZIndex="1"
+            VerticalOptions="Start">
+
+            <BoxView
+                    HeightRequest="60"
+                    HorizontalOptions="FillAndExpand"
+                    Color="Transparent"
+                    VerticalOptions="Start"
+                    BackgroundColor="Transparent">
+                <BoxView.Background>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Color="#b0000000" Offset="0" />
+                        <GradientStop Color="#00000000" Offset="1" />
+                    </LinearGradientBrush>
+                </BoxView.Background>
+            </BoxView>
+
+            <Label  
+                Text="Back"
+                HorizontalOptions="FillAndExpand"
+                Style="{StaticResource BackIconStyle}">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer         
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MovieDetailsViewModel}}, Path=GoBackCommand}"/>
+                </Label.GestureRecognizers>
+
+            </Label>
+        </Grid>
+
+        <ScrollView
+            Grid.Row="1"
+            >
+            <Grid
+                
+                RowDefinitions="400, Auto, Auto, *">
+                <!-- COVER -->
+                <Grid>
+
+                    <Border
                     Style="{StaticResource CoverContainerStyle}">
 
-                    <Border.Shadow>
-                        <Shadow
+                        <Border.Shadow>
+                            <Shadow
                                 Brush="black"
                                 Offset="0,10"
                                 Radius="40"
                                 Opacity="0.5"/>
 
-                    </Border.Shadow>
+                        </Border.Shadow>
 
-                    <Image 
+                        <Image 
                     Source="{Binding Movie.poster_path}"
                     Style="{StaticResource CoverImageStyle}">
 
-                    </Image>
-                </Border>
+                        </Image>
+                    </Border>
 
-                <BoxView
-                        HeightRequest="60"
-                        HorizontalOptions="FillAndExpand"
-                        Color="Transparent"
-                        VerticalOptions="Start"
-                        BackgroundColor="Transparent">
-                    <BoxView.Background>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                            <GradientStop Color="#b0000000" Offset="0" />
-                            <GradientStop Color="#00000000" Offset="1" />
-                        </LinearGradientBrush>
-                    </BoxView.Background>
-                </BoxView>
 
-                <Label 
-                Text="Back"
-                HorizontalOptions="FillAndExpand"
-                Style="{StaticResource BackIconStyle}">
-                    <Label.GestureRecognizers>
-                        <TapGestureRecognizer         
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MovieDetailsViewModel}}, Path=GoBackCommand}"/>
-                    </Label.GestureRecognizers>
-
-                </Label>
-
-            </Grid>
-            <!-- INFO -->
-            <Grid
+                </Grid>
+                <!-- INFO -->
+                <Grid
             Grid.Row="1"
             ColumnDefinitions="Auto, Auto, Auto, *"
             RowDefinitions="Auto, Auto, *"
             Margin="0, 80, 0, 0"
             Style="{StaticResource PaddingContainerStyle}">
-                <Label
+                    <Label
                 Grid.ColumnSpan="3"
                 Text="{Binding Movie.original_title}"
                 Style="{StaticResource MovieTitleStyle}"/>
-                <Label
+                    <Label
                 Grid.Row="1"
                 Text="{Binding Movie.release_date}"
                 Style="{StaticResource MovieInfoTextStyle}"/>
-                <Label
+                    <Label
                 Grid.Column="2"
                 Grid.Row="1"
                 Text="{Binding MovieDetailsResponse.RuntimeFormatted}"
                 Style="{StaticResource MovieInfoTextStyle}"/>
-                <Border
+                    <Border                       
                 Grid.Column="3"
                 Grid.Row="0"
                 Grid.RowSpan="2"
                 Style="{StaticResource AddButtonStyle}">
-                    <Label 
+                        <Label
+                            x:Name="FavouriteButtonLabel"
                     Text="+"
                     Style="{StaticResource AddButtonTextStyle}"/>
-                </Border>
-                <CollectionView
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MovieDetailsViewModel}}, Path=AddMovieToFavouritesCommand}"/>
+                        </Border.GestureRecognizers>
+
+                    </Border>
+                    <CollectionView
                 Grid.ColumnSpan="4"
                 Grid.Row="2"
                 ItemsSource="{Binding Genres}"
                 Style="{StaticResource CategoriesStyle}">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout
                         Orientation="Horizontal"
                         ItemSpacing="6"/>
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <templates:CategoryItemTemplate />
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Grid>
-            <!-- PLOT SUMMARY -->
-            <Grid
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <templates:CategoryItemTemplate />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+                <!-- PLOT SUMMARY -->
+                <Grid
             Grid.Row="2"
             RowDefinitions="Auto, *"
             Style="{StaticResource PaddingContainerStyle}">
-                <Label 
+                    <Label 
                 Text="Plot Summary"
                 Style="{StaticResource SectionTitleStyle}"/>
-                <Label
+                    <Label
                 Grid.Row="1"
                 Text="{Binding Movie.overview}"
                 Style="{StaticResource SummaryTextStyle}"/>
-            </Grid>
-            <!-- CAST -->
-            <Grid
-            Grid.Row="3"
-            RowDefinitions="Auto, 160"
-            Style="{StaticResource PaddingContainerStyle}">
-                <Label 
-                Text="Cast"
-                Style="{StaticResource SectionTitleStyle}" />
-                <CollectionView
-                Grid.Row="1"
-                ItemsSource="{Binding Cast}">
-                    <CollectionView.ItemsLayout>
-                        <LinearItemsLayout
+                </Grid>
+                <!-- CAST -->
+                <Grid
+                    Grid.Row="3"
+                    RowDefinitions="Auto, 160"
+                    Style="{StaticResource PaddingContainerStyle}"
+                    >
+                    <Label 
+                        Text="Cast"
+                        Style="{StaticResource SectionTitleStyle}" />
+                    <CollectionView
+                        Grid.Row="1"
+                        ItemsSource="{Binding Cast}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout
                         Orientation="Horizontal" 
                         ItemSpacing="24" />
-                    </CollectionView.ItemsLayout>
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <templates:CastItemTemplate />
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
-            </Grid>
-            <!-- RATING BANNER -->
-            <Border
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <templates:CastItemTemplate />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+                <!-- RATING BANNER -->
+                <Border
             Grid.Row="0"
             Grid.RowSpan="4"
             Style="{StaticResource RatingContainerStyle}">
-                <Border.Shadow>
-                    <Shadow 
+                    <Border.Shadow>
+                        <Shadow 
                     Opacity="0.5"
                     Radius="12"
                     Offset="0, 6"/>
-                </Border.Shadow>
-                <Grid
-                ColumnDefinitions="*, *">
+                    </Border.Shadow>
                     <Grid
+                ColumnDefinitions="*, *">
+                        <Grid
                     RowSpacing="0"
                     RowDefinitions="*, Auto, Auto">
-                        <Image
+                            <Image
                         Source="ic_star.png"
                         Style="{StaticResource RatingIconStyle}"/>
-                        <Label 
+                            <Label 
                         Grid.Row="1"
                         Text="{Binding Movie.vote_average}"
                         Style="{StaticResource InfoTitleStyle}"/>
-                        <Label
+                            <Label
                         Grid.Row="2"
                         Text="{Binding MovieDetailsResponse.vote_count}"
                         Style="{StaticResource InfoSubTitleStyle}"/>
-                    </Grid>                
-                    <Grid
+                        </Grid>
+                        <Grid
                     RowSpacing="0"
                     VerticalOptions="Center"
                     RowDefinitions="*, *"
                     Grid.Column="2">
-                        <Border
+                            <Border
                         Style="{StaticResource MetascoreStyle}">
-                            <Label
+                                <Label
                             Text="{Binding Movie.popularity, StringFormat='{0:0.0}'}"
                             Style="{StaticResource MetascoreTextStyle}"/>
-                        </Border>
-                        <Label
+                            </Border>
+                            <Label
                         Grid.Row="1"
                         Text="Metascore"
                         Style="{StaticResource InfoTitleStyle}"/>
+                        </Grid>
                     </Grid>
-                </Grid>
-            </Border>
-        </Grid>
-    </ScrollView>
+                </Border>
+            </Grid>
+        </ScrollView>
+
+    </Grid>
+
+
 </ContentPage>

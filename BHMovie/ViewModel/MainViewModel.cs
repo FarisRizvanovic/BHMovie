@@ -124,8 +124,6 @@ namespace BHMovie.ViewModel
                 GenresAsStrings.Add(basicGenre.name);
                 Genres.Add(basicGenre);
 
-                string t = "";
-
                 foreach (var genre in genreResponse.genres)
                 {
                     Genres.Add(genre);

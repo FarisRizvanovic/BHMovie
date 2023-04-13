@@ -41,8 +41,11 @@ public static class MauiProgram
         builder.Services.AddTransient<CategoryItemTemplate>();
         builder.Services.AddTransient<MovieItemTemplate>();
 
-        builder.Services.AddSingleton<MovieService>();
+        builder.Services.AddSingleton<FavouritesPage>();
+        builder.Services.AddSingleton<FavouriteMoviesViewModel>();
 
+        builder.Services.AddSingleton<MovieService>();
+        builder.Services.AddSingleton<DatabaseService>();
 
         return builder.Build();
     }

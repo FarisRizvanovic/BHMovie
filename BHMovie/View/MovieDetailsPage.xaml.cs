@@ -17,5 +17,9 @@ public partial class MovieDetailsPage : ContentPage
     {
         base.OnAppearing();
         await _vm.LoadDataAsync();
+        await _vm.CheckIfMovieIsInDatabase();
+        if (_vm.IsMovieFavourited)
+            FavouriteButtonLabel.Text = "-";
     }
+
 }

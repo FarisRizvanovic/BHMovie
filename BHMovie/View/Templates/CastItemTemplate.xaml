@@ -39,7 +39,7 @@
     </ContentView.Resources>
     <Grid
         x:DataType="model:Cast"
-        RowDefinitions="*, Auto, Auto"
+        RowDefinitions="65, Auto, Auto"
         Style="{StaticResource CastContainerStyle}">
         <Image
             Source="{Binding profile_path}"
