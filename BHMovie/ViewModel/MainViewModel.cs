@@ -131,13 +131,7 @@ namespace BHMovie.ViewModel
 
                 }
 
-                foreach (var g in GenresAsStrings)
-                {
-                    Log.Debug("GENRES", $"{g}");
-                }
-
                 SelectedGenre = basicGenre.name;
-
             }
             catch (Exception ex)
             {

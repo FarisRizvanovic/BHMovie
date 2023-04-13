@@ -18,10 +18,10 @@ public partial class FavouritesPage : ContentPage
         Shell.Current.FlyoutIsPresented = true;
     }
 
-    protected override void OnAppearing()
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
-        //_vm.Refresh();
+        await _vm.Refresh();
     }
 
     async void RefreshButton_Clicked(System.Object sender, System.EventArgs e)

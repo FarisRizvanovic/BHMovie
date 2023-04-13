@@ -2,6 +2,7 @@
 using BHMovie.Model;
 using BHMovie.Other;
 using BHMovie.Service;
+using BHMovie.View;
 using CommunityToolkit.Mvvm.Input;
 
 namespace BHMovie.ViewModel
@@ -18,6 +19,24 @@ namespace BHMovie.ViewModel
 
         }
 
+        [RelayCommand]
+        async Task GoToDetails(Movie movie)
+        {
+            if (movie == null)
+                return;
+
+            await Shell.Current.GoToAsync(nameof(MovieDetailsPage), true, new Dictionary<string, object>
+            {
+                {"Movie", movie }
+            });
+        }
+
+        [RelayCommand]
+        public async Task RemoveMovieFromFavourites(Movie movie)
+        {
+            await databaseService.RemoveMovie(movie.id);
+            await Refresh();
+        }
 
         [RelayCommand]
         public async Task Refresh()

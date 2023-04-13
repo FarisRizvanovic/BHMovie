@@ -73,6 +73,7 @@
 	  <None Remove="Other\" />
 	  <None Remove="Resources\Images\ic_full_heart.png" />
 	  <None Remove="Resources\Images\ic_empty_heart.png" />
+	  <None Remove="Resources\Images\ic_delete.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Service\" />
@@ -91,5 +92,6 @@
 	  <BundleResource Include="Resources\Images\left_arrow.png" />
 	  <BundleResource Include="Resources\Images\ic_full_heart.png" />
 	  <BundleResource Include="Resources\Images\ic_empty_heart.png" />
+	  <BundleResource Include="Resources\Images\ic_delete.png" />
 	</ItemGroup>
 </Project>

@@ -44,6 +44,7 @@ namespace BHMovie.ViewModel
             await databaseService.AddMovie(Movie);
         }
 
+        [RelayCommand]
         public async Task RemoveMovieFromFavourites()
         {
             await databaseService.RemoveMovie(Movie.id);

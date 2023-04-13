@@ -49,7 +49,6 @@ public partial class MainPage : ContentPage
     }
 
 
-
     private void OnTimerElapsed(object sender, ElapsedEventArgs e)
     {
         // Check if cancellation was requested
