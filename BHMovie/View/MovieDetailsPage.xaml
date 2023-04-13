@@ -222,19 +222,26 @@
                 Grid.Row="1"
                 Text="{Binding MovieDetailsResponse.RuntimeFormatted}"
                 Style="{StaticResource MovieInfoTextStyle}"/>
-                    <Border                       
-                Grid.Column="3"
-                Grid.Row="0"
-                Grid.RowSpan="2"
-                Style="{StaticResource AddButtonStyle}">
-                        <Label
+                    <Border
+                        x:Name="FavouriteButton"
+                        Grid.Column="3"
+                        Grid.Row="0"
+                        Grid.RowSpan="2"
+                        Style="{StaticResource AddButtonStyle}">
+                        <!--<Label
                             x:Name="FavouriteButtonLabel"
                     Text="+"
-                    Style="{StaticResource AddButtonTextStyle}"/>
+                    Style="{StaticResource AddButtonTextStyle}"/>-->
+
+                        <Image
+                            x:Name="FavouriteButtonImage"
+                            Margin="13"
+                            Source="ic_empty_heart.png"/>
 
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MovieDetailsViewModel}}, Path=AddMovieToFavouritesCommand}"/>
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type                       viewmodel:MovieDetailsViewModel}}, Path=AddMovieToFavouritesCommand}"/>
+
                         </Border.GestureRecognizers>
 
                     </Border>

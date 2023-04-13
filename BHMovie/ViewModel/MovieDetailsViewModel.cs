@@ -42,9 +42,14 @@ namespace BHMovie.ViewModel
         public async Task AddMovieToFavourites()
         {
             await databaseService.AddMovie(Movie);
-            await Shell.Current.DisplayAlert("Error!", $"Unable to  get movies:", "OK");
         }
 
+        public async Task RemoveMovieFromFavourites()
+        {
+            await databaseService.RemoveMovie(Movie.id);
+        }
+
+        [RelayCommand]
         public async Task CheckIfMovieIsInDatabase()
         {
             IsMovieFavourited = await databaseService.CheckIfMovieIsFavourited(Movie);

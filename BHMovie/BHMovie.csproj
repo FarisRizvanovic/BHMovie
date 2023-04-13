@@ -71,6 +71,8 @@
 	  <None Remove="View\Templates\" />
 	  <None Remove="Resources\Images\left-arrow.png" />
 	  <None Remove="Other\" />
+	  <None Remove="Resources\Images\ic_full_heart.png" />
+	  <None Remove="Resources\Images\ic_empty_heart.png" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Service\" />
@@ -87,5 +89,7 @@
 	  <BundleResource Include="Resources\Images\ic_star_yellow.svg" />
 	  <BundleResource Include="Resources\Images\ic_star.svg" />
 	  <BundleResource Include="Resources\Images\left_arrow.png" />
+	  <BundleResource Include="Resources\Images\ic_full_heart.png" />
+	  <BundleResource Include="Resources\Images\ic_empty_heart.png" />
 	</ItemGroup>
 </Project>
