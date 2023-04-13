@@ -1,138 +1,307 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BHMovie.View.MovieDetailsPage"
-             xmlns:viewmodel="clr-namespace:BHMovie.ViewModel"
-             Shell.NavBarIsVisible="False"
-             xmlns:model="clr-namespace:BHMovie.Model"
-             xmlns:templates="clr-namespace:BHMovie.View.Templates"
-             x:DataType="viewmodel:MovieDetailsViewModel"
-             Title="MovieDetailsPage">
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="BHMovie.View.MovieDetailsPage"
+    xmlns:viewmodel="clr-namespace:BHMovie.ViewModel"
+    Shell.NavBarIsVisible="False"
+    xmlns:model="clr-namespace:BHMovie.Model"
+    xmlns:templates="clr-namespace:BHMovie.View.Templates"
+    x:DataType="viewmodel:MovieDetailsViewModel"
+    Title="MovieDetailsPage">
 
     <ContentPage.Resources>
         <ResourceDictionary>
 
-            <Style x:Key="CoverContainerStyle" TargetType="Border">
-                <Setter Property="StrokeShape" Value="RoundRectangle 0, 0, 24, 24" />
-                <Setter Property="StrokeThickness" Value="0" />
+            <Style
+                x:Key="CoverContainerStyle"
+                TargetType="Border">
+                <Setter
+                    Property="StrokeShape"
+                    Value="RoundRectangle 0, 0, 24, 24" />
+                <Setter
+                    Property="StrokeThickness"
+                    Value="0" />
             </Style>
 
-            <Style x:Key="CoverImageStyle" TargetType="Image">
-                <Setter Property="Aspect" Value="AspectFill" />
+            <Style
+                x:Key="CoverImageStyle"
+                TargetType="Image">
+                <Setter
+                    Property="Aspect"
+                    Value="AspectFill" />
             </Style>
 
-            <Style x:Key="BackIconStyle" TargetType="Label">
-                <Setter Property="TextColor" Value="White"/>
-                <Setter Property="Margin" Value="12" />
-                <Setter Property="FontSize" Value="20" />
-                <Setter Property="FontAttributes" Value="Bold"/>
+            <Style
+                x:Key="BackIconStyle"
+                TargetType="Label">
+                <Setter
+                    Property="TextColor"
+                    Value="White" />
+                <Setter
+                    Property="Margin"
+                    Value="12" />
+                <Setter
+                    Property="FontSize"
+                    Value="20" />
+                <Setter
+                    Property="FontAttributes"
+                    Value="Bold" />
             </Style>
 
-            <Style x:Key="RatingContainerStyle" TargetType="Border">
-                <Setter Property="StrokeShape" Value="RoundRectangle 48, 0, 48, 0" />
-                <Setter Property="StrokeThickness" Value="0" />
-                <Setter Property="HeightRequest" Value="80" />
-                <Setter Property="BackgroundColor" Value="White" />
-                <Setter Property="VerticalOptions" Value="Start" />
-                <Setter Property="Padding" Value="12" />
-                <Setter Property="Margin" Value="150, 360, 0, 0" />
+            <Style
+                x:Key="RatingContainerStyle"
+                TargetType="Border">
+                <Setter
+                    Property="StrokeShape"
+                    Value="RoundRectangle 48, 0, 48, 0" />
+                <Setter
+                    Property="StrokeThickness"
+                    Value="0" />
+                <Setter
+                    Property="HeightRequest"
+                    Value="80" />
+                <Setter
+                    Property="BackgroundColor"
+                    Value="White" />
+                <Setter
+                    Property="VerticalOptions"
+                    Value="Start" />
+                <Setter
+                    Property="Padding"
+                    Value="12" />
+                <Setter
+                    Property="Margin"
+                    Value="150, 360, 0, 0" />
             </Style>
 
-            <Style x:Key="PaddingContainerStyle" TargetType="Layout">
-                <Setter Property="Padding" Value="20, 0" />
+            <Style
+                x:Key="PaddingContainerStyle"
+                TargetType="Layout">
+                <Setter
+                    Property="Padding"
+                    Value="20, 0" />
             </Style>
 
-            <Style x:Key="MovieTitleStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="Large" />
-                <Setter Property="FontAttributes" Value="Bold" />
+            <Style
+                x:Key="MovieTitleStyle"
+                TargetType="Label">
+                <Setter
+                    Property="FontSize"
+                    Value="Large" />
+                <Setter
+                    Property="FontAttributes"
+                    Value="Bold" />
             </Style>
 
-            <Style x:Key="MovieInfoTextStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="Micro" />
-                <Setter Property="Opacity" Value="0.75" />
-                <Setter Property="HorizontalOptions" Value="Start" />
-                <Setter Property="VerticalOptions" Value="Center" />
+            <Style
+                x:Key="MovieInfoTextStyle"
+                TargetType="Label">
+                <Setter
+                    Property="FontSize"
+                    Value="Micro" />
+                <Setter
+                    Property="Opacity"
+                    Value="0.75" />
+                <Setter
+                    Property="HorizontalOptions"
+                    Value="Start" />
+                <Setter
+                    Property="VerticalOptions"
+                    Value="Center" />
             </Style>
 
-            <Color x:Key="AddButtonColor">#FD6D8E</Color>
+            <Color
+                x:Key="AddButtonColor">#FD6D8E</Color>
 
-            <Style x:Key="AddButtonStyle" TargetType="Border">
-                <Setter Property="StrokeShape" Value="RoundRectangle 12" />
-                <Setter Property="StrokeThickness" Value="0" />
-                <Setter Property="BackgroundColor" Value="{StaticResource AddButtonColor}" />
-                <Setter Property="HeightRequest" Value="48" />
-                <Setter Property="WidthRequest" Value="48" />
-                <Setter Property="HorizontalOptions" Value="End" />
-                <Setter Property="VerticalOptions" Value="Center" />
+            <Style
+                x:Key="AddButtonStyle"
+                TargetType="Border">
+                <Setter
+                    Property="StrokeShape"
+                    Value="RoundRectangle 12" />
+                <Setter
+                    Property="StrokeThickness"
+                    Value="0" />
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{StaticResource AddButtonColor}" />
+                <Setter
+                    Property="HeightRequest"
+                    Value="48" />
+                <Setter
+                    Property="WidthRequest"
+                    Value="48" />
+                <Setter
+                    Property="HorizontalOptions"
+                    Value="End" />
+                <Setter
+                    Property="VerticalOptions"
+                    Value="Center" />
             </Style>
 
-            <Style x:Key="AddButtonTextStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="Title" />
-                <Setter Property="TextColor" Value="White" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="VerticalOptions" Value="Center" />
+            <Style
+                x:Key="AddButtonTextStyle"
+                TargetType="Label">
+                <Setter
+                    Property="FontSize"
+                    Value="Title" />
+                <Setter
+                    Property="TextColor"
+                    Value="White" />
+                <Setter
+                    Property="HorizontalOptions"
+                    Value="Center" />
+                <Setter
+                    Property="VerticalOptions"
+                    Value="Center" />
             </Style>
 
-            <Style x:Key="CategoriesStyle" TargetType="CollectionView">
-                <Setter Property="Margin" Value="0, 12" />
+            <Style
+                x:Key="CategoriesStyle"
+                TargetType="CollectionView">
+                <Setter
+                    Property="Margin"
+                    Value="0, 12" />
             </Style>
 
-            <Style x:Key="SectionTitleStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="Medium" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="Margin" Value="0, 24, 0, 0" />
+            <Style
+                x:Key="SectionTitleStyle"
+                TargetType="Label">
+                <Setter
+                    Property="FontSize"
+                    Value="Medium" />
+                <Setter
+                    Property="FontAttributes"
+                    Value="Bold" />
+                <Setter
+                    Property="Margin"
+                    Value="0, 24, 0, 0" />
             </Style>
 
-            <Style x:Key="SummaryTextStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="12" />
-                <Setter Property="TextColor" Value="DarkGray" />
-                <Setter Property="Margin" Value="0, 12" />
+            <Style
+                x:Key="SummaryTextStyle"
+                TargetType="Label">
+                <Setter
+                    Property="FontSize"
+                    Value="12" />
+                <Setter
+                    Property="TextColor"
+                    Value="DarkGray" />
+                <Setter
+                    Property="Margin"
+                    Value="0, 12" />
             </Style>
 
-            <Style x:Key="RatingIconStyle" TargetType="Image">
-                <Setter Property="HeightRequest" Value="24" />
-                <Setter Property="WidthRequest" Value="24" />
-                <Setter Property="HorizontalOptions" Value="Center" />
+            <Style
+                x:Key="RatingIconStyle"
+                TargetType="Image">
+                <Setter
+                    Property="HeightRequest"
+                    Value="24" />
+                <Setter
+                    Property="WidthRequest"
+                    Value="24" />
+                <Setter
+                    Property="HorizontalOptions"
+                    Value="Center" />
             </Style>
 
-            <Style x:Key="RatingOutlineIconStyle" TargetType="Image">
-                <Setter Property="HeightRequest" Value="20" />
-                <Setter Property="WidthRequest" Value="20" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="Margin" Value="0, 4, 0, 0" />
+            <Style
+                x:Key="RatingOutlineIconStyle"
+                TargetType="Image">
+                <Setter
+                    Property="HeightRequest"
+                    Value="20" />
+                <Setter
+                    Property="WidthRequest"
+                    Value="20" />
+                <Setter
+                    Property="HorizontalOptions"
+                    Value="Center" />
+                <Setter
+                    Property="Margin"
+                    Value="0, 4, 0, 0" />
             </Style>
 
-            <Style x:Key="InfoTitleStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="12" />
-                <Setter Property="FontAttributes" Value="Bold" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="VerticalOptions" Value="Start" />
+            <Style
+                x:Key="InfoTitleStyle"
+                TargetType="Label">
+                <Setter
+                    Property="FontSize"
+                    Value="12" />
+                <Setter
+                    Property="FontAttributes"
+                    Value="Bold" />
+                <Setter
+                    Property="HorizontalOptions"
+                    Value="Center" />
+                <Setter
+                    Property="VerticalOptions"
+                    Value="Start" />
             </Style>
 
-            <Style x:Key="InfoSubTitleStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="8" />
-                <Setter Property="TextColor" Value="Gray" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="VerticalOptions" Value="Start" />
+            <Style
+                x:Key="InfoSubTitleStyle"
+                TargetType="Label">
+                <Setter
+                    Property="FontSize"
+                    Value="8" />
+                <Setter
+                    Property="TextColor"
+                    Value="Gray" />
+                <Setter
+                    Property="HorizontalOptions"
+                    Value="Center" />
+                <Setter
+                    Property="VerticalOptions"
+                    Value="Start" />
             </Style>
 
-            <Color x:Key="MetascoreColor">#51CF67</Color>
+            <Color
+                x:Key="MetascoreColor">#51CF67</Color>
 
-            <Style x:Key="MetascoreStyle" TargetType="Border">
-                <Setter Property="StrokeShape" Value="Rectangle" />
-                <Setter Property="StrokeThickness" Value="0" />
-                <Setter Property="BackgroundColor" Value="{StaticResource MetascoreColor}" />
-                <Setter Property="HeightRequest" Value="24" />
-                <Setter Property="WidthRequest" Value="24" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="VerticalOptions" Value="Center" />
+            <Style
+                x:Key="MetascoreStyle"
+                TargetType="Border">
+                <Setter
+                    Property="StrokeShape"
+                    Value="Rectangle" />
+                <Setter
+                    Property="StrokeThickness"
+                    Value="0" />
+                <Setter
+                    Property="BackgroundColor"
+                    Value="{StaticResource MetascoreColor}" />
+                <Setter
+                    Property="HeightRequest"
+                    Value="24" />
+                <Setter
+                    Property="WidthRequest"
+                    Value="24" />
+                <Setter
+                    Property="HorizontalOptions"
+                    Value="Center" />
+                <Setter
+                    Property="VerticalOptions"
+                    Value="Center" />
             </Style>
 
-            <Style x:Key="MetascoreTextStyle" TargetType="Label">
-                <Setter Property="FontSize" Value="Micro" />
-                <Setter Property="TextColor" Value="White" />
-                <Setter Property="HorizontalOptions" Value="Center" />
-                <Setter Property="VerticalOptions" Value="Center" />
+            <Style
+                x:Key="MetascoreTextStyle"
+                TargetType="Label">
+                <Setter
+                    Property="FontSize"
+                    Value="Micro" />
+                <Setter
+                    Property="TextColor"
+                    Value="White" />
+                <Setter
+                    Property="HorizontalOptions"
+                    Value="Center" />
+                <Setter
+                    Property="VerticalOptions"
+                    Value="Center" />
             </Style>
 
         </ResourceDictionary>
@@ -147,55 +316,59 @@
             VerticalOptions="Start">
 
             <BoxView
-                    HeightRequest="60"
-                    HorizontalOptions="FillAndExpand"
-                    Color="Transparent"
-                    VerticalOptions="Start"
-                    BackgroundColor="Transparent">
+                HeightRequest="60"
+                HorizontalOptions="FillAndExpand"
+                Color="Transparent"
+                VerticalOptions="Start"
+                BackgroundColor="Transparent">
                 <BoxView.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                        <GradientStop Color="#b0000000" Offset="0" />
-                        <GradientStop Color="#00000000" Offset="1" />
+                    <LinearGradientBrush
+                        StartPoint="0,0"
+                        EndPoint="0,1">
+                        <GradientStop
+                            Color="#b0000000"
+                            Offset="0" />
+                        <GradientStop
+                            Color="#00000000"
+                            Offset="1" />
                     </LinearGradientBrush>
                 </BoxView.Background>
             </BoxView>
 
-            <Label  
+            <Label
                 Text="Back"
                 HorizontalOptions="FillAndExpand"
                 Style="{StaticResource BackIconStyle}">
                 <Label.GestureRecognizers>
-                    <TapGestureRecognizer         
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MovieDetailsViewModel}}, Path=GoBackCommand}"/>
+                    <TapGestureRecognizer
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MovieDetailsViewModel}}, Path=GoBackCommand}" />
                 </Label.GestureRecognizers>
 
             </Label>
         </Grid>
 
         <ScrollView
-            Grid.Row="1"
-            >
+            Grid.Row="1">
             <Grid
-                
                 RowDefinitions="400, Auto, Auto, *">
                 <!-- COVER -->
                 <Grid>
 
                     <Border
-                    Style="{StaticResource CoverContainerStyle}">
+                        Style="{StaticResource CoverContainerStyle}">
 
                         <Border.Shadow>
                             <Shadow
                                 Brush="black"
                                 Offset="0,10"
                                 Radius="40"
-                                Opacity="0.5"/>
+                                Opacity="0.5" />
 
                         </Border.Shadow>
 
-                        <Image 
-                    Source="{Binding Movie.poster_path}"
-                    Style="{StaticResource CoverImageStyle}">
+                        <Image
+                            Source="{Binding Movie.poster_path}"
+                            Style="{StaticResource CoverImageStyle}">
 
                         </Image>
                     </Border>
@@ -204,56 +377,52 @@
                 </Grid>
                 <!-- INFO -->
                 <Grid
-            Grid.Row="1"
-            ColumnDefinitions="Auto, Auto, Auto, *"
-            RowDefinitions="Auto, Auto, *"
-            Margin="0, 80, 0, 0"
-            Style="{StaticResource PaddingContainerStyle}">
+                    Grid.Row="1"
+                    ColumnDefinitions="Auto, Auto, Auto, *"
+                    RowDefinitions="Auto, Auto, *"
+                    Margin="0, 80, 0, 0"
+                    Style="{StaticResource PaddingContainerStyle}">
                     <Label
-                Grid.ColumnSpan="3"
-                Text="{Binding Movie.original_title}"
-                Style="{StaticResource MovieTitleStyle}"/>
+                        Grid.ColumnSpan="3"
+                        Text="{Binding Movie.original_title}"
+                        Style="{StaticResource MovieTitleStyle}" />
                     <Label
-                Grid.Row="1"
-                Text="{Binding Movie.release_date}"
-                Style="{StaticResource MovieInfoTextStyle}"/>
+                        Grid.Row="1"
+                        Text="{Binding Movie.release_date}"
+                        Style="{StaticResource MovieInfoTextStyle}" />
                     <Label
-                Grid.Column="2"
-                Grid.Row="1"
-                Text="{Binding MovieDetailsResponse.RuntimeFormatted}"
-                Style="{StaticResource MovieInfoTextStyle}"/>
+                        Grid.Column="2"
+                        Grid.Row="1"
+                        Text="{Binding MovieDetailsResponse.RuntimeFormatted}"
+                        Style="{StaticResource MovieInfoTextStyle}" />
                     <Border
                         x:Name="FavouriteButton"
                         Grid.Column="3"
                         Grid.Row="0"
                         Grid.RowSpan="2"
                         Style="{StaticResource AddButtonStyle}">
-                        <!--<Label
-                            x:Name="FavouriteButtonLabel"
-                    Text="+"
-                    Style="{StaticResource AddButtonTextStyle}"/>-->
 
                         <Image
                             x:Name="FavouriteButtonImage"
                             Margin="13"
-                            Source="ic_empty_heart.png"/>
+                            Source="ic_empty_heart.png" />
 
                         <Border.GestureRecognizers>
                             <TapGestureRecognizer
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type                       viewmodel:MovieDetailsViewModel}}, Path=AddMovieToFavouritesCommand}"/>
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type                       viewmodel:MovieDetailsViewModel}}, Path=AddMovieToFavouritesCommand}" />
 
                         </Border.GestureRecognizers>
 
                     </Border>
                     <CollectionView
-                Grid.ColumnSpan="4"
-                Grid.Row="2"
-                ItemsSource="{Binding Genres}"
-                Style="{StaticResource CategoriesStyle}">
+                        Grid.ColumnSpan="4"
+                        Grid.Row="2"
+                        ItemsSource="{Binding Genres}"
+                        Style="{StaticResource CategoriesStyle}">
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout
-                        Orientation="Horizontal"
-                        ItemSpacing="6"/>
+                                Orientation="Horizontal"
+                                ItemSpacing="6" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
@@ -264,24 +433,23 @@
                 </Grid>
                 <!-- PLOT SUMMARY -->
                 <Grid
-            Grid.Row="2"
-            RowDefinitions="Auto, *"
-            Style="{StaticResource PaddingContainerStyle}">
-                    <Label 
-                Text="Plot Summary"
-                Style="{StaticResource SectionTitleStyle}"/>
+                    Grid.Row="2"
+                    RowDefinitions="Auto, *"
+                    Style="{StaticResource PaddingContainerStyle}">
                     <Label
-                Grid.Row="1"
-                Text="{Binding Movie.overview}"
-                Style="{StaticResource SummaryTextStyle}"/>
+                        Text="Plot Summary"
+                        Style="{StaticResource SectionTitleStyle}" />
+                    <Label
+                        Grid.Row="1"
+                        Text="{Binding Movie.overview}"
+                        Style="{StaticResource SummaryTextStyle}" />
                 </Grid>
                 <!-- CAST -->
                 <Grid
                     Grid.Row="3"
                     RowDefinitions="Auto, 160"
-                    Style="{StaticResource PaddingContainerStyle}"
-                    >
-                    <Label 
+                    Style="{StaticResource PaddingContainerStyle}">
+                    <Label
                         Text="Cast"
                         Style="{StaticResource SectionTitleStyle}" />
                     <CollectionView
@@ -289,8 +457,8 @@
                         ItemsSource="{Binding Cast}">
                         <CollectionView.ItemsLayout>
                             <LinearItemsLayout
-                        Orientation="Horizontal" 
-                        ItemSpacing="24" />
+                                Orientation="Horizontal"
+                                ItemSpacing="24" />
                         </CollectionView.ItemsLayout>
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
@@ -301,47 +469,47 @@
                 </Grid>
                 <!-- RATING BANNER -->
                 <Border
-            Grid.Row="0"
-            Grid.RowSpan="4"
-            Style="{StaticResource RatingContainerStyle}">
+                    Grid.Row="0"
+                    Grid.RowSpan="4"
+                    Style="{StaticResource RatingContainerStyle}">
                     <Border.Shadow>
-                        <Shadow 
-                    Opacity="0.5"
-                    Radius="12"
-                    Offset="0, 6"/>
+                        <Shadow
+                            Opacity="0.5"
+                            Radius="12"
+                            Offset="0, 6" />
                     </Border.Shadow>
                     <Grid
-                ColumnDefinitions="*, *">
+                        ColumnDefinitions="*, *">
                         <Grid
-                    RowSpacing="0"
-                    RowDefinitions="*, Auto, Auto">
+                            RowSpacing="0"
+                            RowDefinitions="*, Auto, Auto">
                             <Image
-                        Source="ic_star.png"
-                        Style="{StaticResource RatingIconStyle}"/>
-                            <Label 
-                        Grid.Row="1"
-                        Text="{Binding Movie.vote_average}"
-                        Style="{StaticResource InfoTitleStyle}"/>
+                                Source="ic_star.png"
+                                Style="{StaticResource RatingIconStyle}" />
                             <Label
-                        Grid.Row="2"
-                        Text="{Binding MovieDetailsResponse.vote_count}"
-                        Style="{StaticResource InfoSubTitleStyle}"/>
+                                Grid.Row="1"
+                                Text="{Binding Movie.vote_average}"
+                                Style="{StaticResource InfoTitleStyle}" />
+                            <Label
+                                Grid.Row="2"
+                                Text="{Binding MovieDetailsResponse.vote_count}"
+                                Style="{StaticResource InfoSubTitleStyle}" />
                         </Grid>
                         <Grid
-                    RowSpacing="0"
-                    VerticalOptions="Center"
-                    RowDefinitions="*, *"
-                    Grid.Column="2">
+                            RowSpacing="0"
+                            VerticalOptions="Center"
+                            RowDefinitions="*, *"
+                            Grid.Column="2">
                             <Border
-                        Style="{StaticResource MetascoreStyle}">
+                                Style="{StaticResource MetascoreStyle}">
                                 <Label
-                            Text="{Binding Movie.popularity, StringFormat='{0:0.0}'}"
-                            Style="{StaticResource MetascoreTextStyle}"/>
+                                    Text="{Binding Movie.popularity, StringFormat='{0:0.0}'}"
+                                    Style="{StaticResource MetascoreTextStyle}" />
                             </Border>
                             <Label
-                        Grid.Row="1"
-                        Text="Metascore"
-                        Style="{StaticResource InfoTitleStyle}"/>
+                                Grid.Row="1"
+                                Text="Metascore"
+                                Style="{StaticResource InfoTitleStyle}" />
                         </Grid>
                     </Grid>
                 </Border>

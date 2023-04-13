@@ -100,7 +100,7 @@
                     Value="12" />
                 <Setter
                     Property="Margin"
-                    Value="0,20,0,0"/>
+                    Value="0,20,0,0" />
 
             </Style>
 
@@ -159,11 +159,11 @@
 
             <Image
                 Style="{StaticResource NavigationIconStyle}"
-                Source="ic_menu.png" >
+                Source="ic_menu.png">
 
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer
-                        Tapped="TapGestureRecognizer_Tapped"/>
+                        Tapped="TapGestureRecognizer_Tapped" />
 
                 </Image.GestureRecognizers>
 
@@ -177,7 +177,7 @@
                     BorderColor="LightGray"
                     BackgroundColor="Transparent"
                     CornerRadius="50"
-                    HasShadow="False"/>
+                    HasShadow="False" />
 
                 <Entry
                     x:Name="Searchbar"
@@ -187,15 +187,14 @@
                     HorizontalOptions="FillAndExpand"
                     TextChanged="Searchbar_TextChanged"
                     VerticalTextAlignment="Center"
-                    Placeholder="Search..."/>
+                    Placeholder="Search..." />
 
                 <Image
                     Margin="0, 5, 10, 5"
                     VerticalOptions="Center"
                     HorizontalOptions="End"
                     Style="{StaticResource NavigationIconStyle}"
-                    Source="ic_search.png"
-                    />
+                    Source="ic_search.png" />
 
             </Grid>
 
@@ -227,7 +226,7 @@
                         <Grid
                             RowDefinitions="Auto, Auto"
                             Style="{StaticResource SourceItemStyle}">
-                            <Label        
+                            <Label
                                 x:Name="SourceText"
                                 Style="{StaticResource SourceTextStyle}"
                                 Text="{Binding .}" />
@@ -268,27 +267,36 @@
                 <DataTemplate>
                     <Grid>
                         <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonState">
-                                <VisualState x:Name="CurrentItem">
+                            <VisualStateGroup
+                                x:Name="CommonState">
+                                <VisualState
+                                    x:Name="CurrentItem">
                                     <VisualState.Setters>
-                                        <Setter Property="Rotation"
-                                                Value="0"/>
+                                        <Setter
+                                            Property="Rotation"
+                                            Value="0" />
                                     </VisualState.Setters>
                                 </VisualState>
-                                <VisualState x:Name="PreviousItem">
+                                <VisualState
+                                    x:Name="PreviousItem">
                                     <VisualState.Setters>
-                                        <Setter Property="Rotation"
-                                                Value="-10"/>
-                                        <Setter Property="Opacity"
-                                                Value="0.5"/>
+                                        <Setter
+                                            Property="Rotation"
+                                            Value="-10" />
+                                        <Setter
+                                            Property="Opacity"
+                                            Value="0.5" />
                                     </VisualState.Setters>
                                 </VisualState>
-                                <VisualState x:Name="NextItem">
+                                <VisualState
+                                    x:Name="NextItem">
                                     <VisualState.Setters>
-                                        <Setter Property="Rotation"
-                                                Value="10"/>
-                                        <Setter Property="Opacity"
-                                                Value="0.5"/>
+                                        <Setter
+                                            Property="Rotation"
+                                            Value="10" />
+                                        <Setter
+                                            Property="Opacity"
+                                            Value="0.5" />
                                     </VisualState.Setters>
                                 </VisualState>
                             </VisualStateGroup>
